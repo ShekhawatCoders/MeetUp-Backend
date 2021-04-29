@@ -1,6 +1,7 @@
-// import express from 'express';
-var express = require('express');
+import express from 'express';
+const express = require('express');
 var app = express();
+const path =  require('path');
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 const port = process.env.PORT || 5500;
