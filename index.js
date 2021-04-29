@@ -9,6 +9,22 @@ app.use(express.static(path.join(__dirname, '/../')));
 
 console.log(__dirname);
 
+const testFolder = path.join(__dirname, '/../');
+const fs = require('fs');
+fs.readdirSync(testFolder).forEach(file => {
+  console.log(file);
+});
+
+console.log("-----------------");
+
+const testFolder = __dirname;
+const fs = require('fs');
+fs.readdirSync(testFolder).forEach(file => {
+  console.log(file);
+});
+
+console.log("-----------------");
+
 app.get('/',function(req,res) {
     res.sendFile(path.join(__dirname + '/../index.html'));
 });
