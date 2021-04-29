@@ -9,8 +9,8 @@ app.use(express.static(path.join(__dirname, '/../')));
 
 console.log(__dirname);
 
-const testFolder = path.join(__dirname, '/../');
 const fs = require('fs');
+const testFolder = path.join(__dirname, '/../');
 fs.readdirSync(testFolder).forEach(file => {
   console.log(file);
 });
@@ -18,7 +18,6 @@ fs.readdirSync(testFolder).forEach(file => {
 console.log("-----------------");
 
 const testNewFolder = __dirname;
-const fs = require('fs');
 fs.readdirSync(testNewFolder).forEach(file => {
   console.log(file);
 });
