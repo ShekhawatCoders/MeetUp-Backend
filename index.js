@@ -3,7 +3,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 const port = process.env.PORT || 5500;
 
-app.use(express.static(path.join(__dirname, '/../client/build')));
+// app.use(express.static(path.join(__dirname, '/../client/build')));
 
 app.get('/',function(req,res) {
     res.sendFile(path.join(__dirname + '/../client/build/index.html'));
