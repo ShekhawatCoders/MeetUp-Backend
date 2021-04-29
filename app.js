@@ -1,6 +1,7 @@
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+const port = process.env.PORT || 5500;
 
 app.get('/',function(req,res) {
     res.sendFile('c:/Users/visha/OneDrive/Desktop/Nodejs Socketio/index.html');
@@ -48,7 +49,7 @@ io.on('connection', function(socket) {
     });
 
 });
-const port = 5500;
+
 http.listen(port, function() {
     console.log('Server is listening at port ' + port);
 });
