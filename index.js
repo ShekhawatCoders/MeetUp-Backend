@@ -17,9 +17,9 @@ fs.readdirSync(testFolder).forEach(file => {
 
 console.log("-----------------");
 
-const testFolder = __dirname;
+const testNewFolder = __dirname;
 const fs = require('fs');
-fs.readdirSync(testFolder).forEach(file => {
+fs.readdirSync(testNewFolder).forEach(file => {
   console.log(file);
 });
 
