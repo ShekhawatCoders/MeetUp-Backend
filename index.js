@@ -5,27 +5,19 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 const port = process.env.PORT || 5500;
 
-app.use(express.static(path.join(__dirname, '/../')));
+app.use(express.static(path.join(__dirname)));
 
+/*
 console.log(__dirname);
-
 const fs = require('fs');
-const testFolder = path.join(__dirname, '/../');
+const testFolder = path.join(__dirname, '');
 fs.readdirSync(testFolder).forEach(file => {
   console.log(file);
 });
-
-console.log("-----------------");
-
-const testNewFolder = __dirname;
-fs.readdirSync(testNewFolder).forEach(file => {
-  console.log(file);
-});
-
-console.log("-----------------");
+*/
 
 app.get('/',function(req,res) {
-    res.sendFile(path.join(__dirname + '/../index.html'));
+    res.sendFile(path.join(__dirname + '/index.html'));
 });
 
 var clients = 0;
