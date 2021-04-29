@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+    <link rel="icon" href="../images/firebase.png">
+
+    <title>Firebase Overview</title>
+
+    <meta name="description" content="Firebase is a platform developed by Google for creating mobile and web
+    applications.Firebase Authentication,Firebase Database,Firebase Firestore,Firebase Cloud Functions,
+    Firebase Cloud Storage and Firebase MLkit ...">
+
+</head>
+
+<body>
+
+    <div class="modal" id="loginModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Good to SeeYou</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Email address</label>
+                            <input type="email" class="form-control" id="exampleFormControlInput1"
+                                placeholder="name@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Enter Password</label>
+                            <input type="password" class="form-control" id="exampleFormControlInput1"
+                                placeholder="password">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1">What changes you want (Optional)</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Login</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="signupModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Join rvCoder Club</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Email address</label>
+                            <input type="email" class="form-control" id="exampleFormControlInput1"
+                                placeholder="name@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Enter Password</label>
+                            <input type="password" class="form-control" id="exampleFormControlInput1"
+                                placeholder="password">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Select Your Degree</label>
+                            <select class="form-control" id="exampleFormControlSelect1">
+                                <option>B.tech</option>
+                                <option>M.tech</option>
+                                <option>B.Sc</option>
+                                <option>M.Sc</option>
+                                <option>B.Com</option>
+                                <option>M.Com</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1">Tell us About yourself (Optional)</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Sign Up</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">rvCoder</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="../index.html">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">App Development<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Firebase <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Explore
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Take Quiz</a>
+                        <a class="dropdown-item" href="#">Read Projects</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Write for Us</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../contact.html">Contact Us</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                <button type="button" class="btn btn-info my-2 mx-2 my-sm-0" data-toggle="modal"
+                    data-target="#loginModal">Login</button>
+                <button type="button" class="btn btn-info my-2 my-sm-0" data-toggle="modal"
+                    data-target="#signupModal">Sign Up</button>
+            </form>
+        </div>
+    </nav>
+
+    <div class="container my-3">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h2>Firebase Overview</h2>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Firebase is a platform developed by Google for creating mobile and web
+                    applications.</li>
+                <li class="list-group-item">Firebase's first product was the Firebase Realtime Database, an API that
+                    synchronizes
+                    application data across iOS, Android, and Web devices, and stores it on Firebase's cloud.</li>
+                <li class="list-group-item">In 2014, Firebase launched two products. Firebase Hosting and Firebase
+                    Authentication.</li>
+                <li class="list-group-item">In October 2017, Firebase has launched Cloud Firestore, a real-time document
+                    database as the successor product to the original Firebase Realtime Database.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container">
+        <div
+            class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+            <div class="col p-4 d-flex flex-column position-static">
+                <strong class="d-inline-block mb-2 text-primary">Firebase</strong>
+                <h3 class="mb-0">Firebase</h3>
+                <div class="mb-1 text-muted">Nov 12</div>
+                <p class="card-text mb-auto">Firebase is a Backend-as-a-Service (Baas).
+                    It provides developers with a variety of tools and services
+                    to help them develop quality apps, grow their user base, and earn
+                    profit. It is built on Google’s infrastructure.
+                    Firebase is categorized as a NoSQL database program,
+                    which stores data in JSON-like documents.</p>
+                <!--<a href="#" class="stretched-link">Continue reading</a>-->
+            </div>
+
+            <div class="col-auto d-none d-lg-block">
+                <img class="bd-placeholder-img" width="200" height="250" src="../images/firebase.png"
+                    preserveAspectRatio="xMidYMid slice" focusable="false" role="img"
+                    aria-label="Placeholder: Thumbnail"></img>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container my-3">
+
+        <div class="card">
+            <div class="card-header">
+                Firebase
+            </div>
+
+            <div class="card-body">
+                <h5 class="card-title">Firebase Authentication</h5>
+                <p class="card-text">user login and identity</p>
+                <a href="#" class="btn btn-primary">Learn More ...</a>
+            </div>
+
+            <hr>
+
+            <div class="card-body">
+                <h5 class="card-title">Firebase Realtime Database</h5>
+                <p class="card-text">realtime, cloud hosted, NoSQL database</p>
+                <a href="firebase_database/" class="btn btn-primary">Learn More ...</a>
+            </div>
+
+            <hr>
+
+            <div class="card-body">
+                <h5 class="card-title">Firebase Cloud Firestore</h5>
+                <p class="card-text">realtime, cloud hosted, NoSQL database</p>
+                <a href="#" class="btn btn-primary">Learn More ...</a>
+            </div>
+
+            <hr>
+
+            <div class="card-body">
+                <h5 class="card-title">Firebase Cloud Storage</h5>
+                <p class="card-text">massively scalable file storage</p>
+                <a href="#" class="btn btn-primary">Learn More ...</a>
+            </div>
+
+            <hr>
+
+            <div class="card-body">
+                <h5 class="card-title">Firebase Cloud Functions</h5>
+                <p class="card-text">“serverless”, event driven backend</p>
+                <a href="#" class="btn btn-primary">Learn More ...</a>
+            </div>
+
+            <hr>
+
+            <div class="card-body">
+                <h5 class="card-title">Firebase Hosting</h5>
+                <p class="card-text">global web hosting</p>
+                <a href="#" class="btn btn-primary">Learn More ...</a>
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+
+
+    <!-- Option 2: jQuery, Popper.js, and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"
+        integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
+        crossorigin="anonymous"></script>
+
+
+
+
+</body>
+
+</html>

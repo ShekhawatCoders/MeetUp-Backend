@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
+	<link href='https://fonts.googleapis.com/css?family=Cantata One' rel='stylesheet'>
+	<title>Segment Tree</title>
+	<link rel="stylesheet" href="../../mycss.css">
+</head>
+<body>
+
+	<h2 style="text-align: center;">Segmet Tree in Java</h2>
+	<div class="codediv">
+
+		<h3 class="subheading">Build , Range Min Query , Update Segment Tree</h3>
+	<h4 class="subheading4">Code : </h4>
+		<pre class="code">
+import java.io.*;<br>
+import java.util.*;<br>
+public class SegmentTree {<br>
+
+	public static void main(String[] args) {<br>
+		Scanner sc = new Scanner(System.in);<br>
+	    int n = sc.nextInt();<br>
+	    int q = sc.nextInt();<br>
+
+	    int a[] = new int[n];<br><br>
+	    for(int i=0;i< n;i++) a[i] = sc.nextInt();<br>
+	    <span class="commentclass">//Segment Tree</span><br>
+	    int st[] = new int[4*n];<br>
+
+	    <span class="commentclass">//Build Segment Tree</span><br>
+	    buildSegmentTree(a,st,0,0,n-1);<br>
+
+	    for(int i=0;i < q;i++) {<br>
+	        char c = sc.next().charAt(0);<br>
+	        int a1 = sc.nextInt();<br>
+	        int b1 = sc.nextInt();<br>
+
+	        if(c == 'q') {<br>
+	            System.out.println(rangeMinSegmentTree(a,st,0,0,n-1,a1,b1));<br>
+	        }<br>
+	        if(c == 'u')  {<br>
+	            updateSegmentTree(a,st,0,a1,0,n-1,b1);<br>
+	        }<br>
+	        if(c == 'a') {<br>
+	        	for(int j=0;j< n;j++) {<br>
+	        		System.out.print(a[j]);<br>
+	        		System.out.println();<br>
+	        	}<br>
+	        }<br>
+	    }<br>
+	}<br>
+
+	public static void updateSegmentTree(int a[],int st[],int index,int pos,int l,int r,int val) {<br>
+        if(l==r) {<br>
+            a[pos] = val;<br>
+            st[index] = val;<br>
+            return;<br>
+        }<br>
+        int m = (l+r)/2;<br>
+        if(pos <= m)<br>
+        	updateSegmentTree(a,st,2*index+1,pos,l,m,val);<br>
+        else <br>
+        	updateSegmentTree(a,st,2*index+2,pos,m+1,r,val);<br>
+
+        st[index] = Math.min(st[2*index+1],st[2*index+2]);<br>
+    }<br>
+
+    public static void buildSegmentTree(int a[],int st[],int index,int l,int r) {<br>
+        if(l == r) {<br>
+            st[index] = a[l];<br>
+            return;<br>
+        }<br>
+        int m = (l+r)/2;<br>
+        buildSegmentTree(a,st,2*index+1,l,m);<br>
+        buildSegmentTree(a,st,2*index+2,m+1,r);<br>
+        st[index] = Math.min(st[2*index+1],st[2*index+2]);<br>
+    }<br>
+
+    public static int rangeMinSegmentTree(int a[],int st[],int index,int l,int r,int rl,int rr) {<br>
+        if(l >= rl && r <= rr) return st[index];<br>
+        if(l > rr || r < rl) return Integer.MAX_VALUE;<br>
+        int m = (l+r)/2;<br>
+        int left = rangeMinSegmentTree(a,st,2*index+1,l,m,rl,rr);<br>
+        int right = rangeMinSegmentTree(a,st,2*index+2,m+1,r,rl,rr);<br>
+        return Math.min(left,right);<br>
+    }<br>
+
+}<br>
+
+		</pre>
+
+	</div>
+
+</body>
+</html>

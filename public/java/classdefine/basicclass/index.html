@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
+	<link href='https://fonts.googleapis.com/css?family=Cantata One' rel='stylesheet'>
+	<title>Class</title>
+	<link rel="stylesheet" href="../../javacss.css">
+</head>
+<body>
+	
+	<div>
+		<h3 class="subheading4">Class : </h3>
+		<p class="code">Class defines property and behaviors of an object.It's a templete or blueprint for an object that defines what an object's datafields and methods will be .</p>
+		<h3 class="subheading4">Object : </h3>
+		<p class="code">Object is an instance of a class.The terms object and instance are interchangable.</p>
+		<h3 class="subheading4">Construcotrs :</h3>
+		<p class="code">
+			<ul class="code">
+				<li>Constructors should have same name as Class.</li>
+				<li>Constructors can not have return type even void.</li>
+				<li>Constructors are invoked using new operator.</li>
+				<li>Constructors can be overloaded , multiple constructors can have same name but different signature.</li>
+				<li>A class may be defined without construtors.In this case a public no-argument constructor with an empty body implicitly defined by the class.This constructor called <b>default constructor</b> is provided if no constructors are defined explicitly.</li>
+			</ul>
+		</p>
+	<ul class="code">
+		<p class="subheading4">Points : </p>
+		<li>In short, Classes are definitions for objects and objects are created from class.</li>
+		<li>The difference b/w classes and objects are same as apple-pie-recepe and apple-pies.You can make as many as you want apple-pie using single apple-pie-recepe.</li>
+		<li>A class provides a special type of methods known as constructor , they are invoked every time when we create a object of that class , if we don't define constructor jvm(java virtual machine) will automatically create this for us, in constructor we usually initialize our variables.</li>
+	</ul>
+	</div>
+<div class="codediv">		
+<pre class="code">
+/*
+You can access class variables and can invoke methods of an class using "." operator on that class's object.
+*/
+class Circle {
+	int radius;
+	//no-argument constructor
+	Circle () {
+		this.radius = 1;
+	}
+	//single parameter constructor
+	Circle (int radius) {
+		this.radius = radius;
+	}
+	public int getArea() {
+		return (Math.PI*radius*radius);
+	}
+	public int getPerimeter() {
+		return (2*Math.PI*radius);
+	}
+	public void setRadius(int radius) {
+		this.radius = radius;
+	}
+}
+class CircleTest {
+	public static void main(String[] args) {
+		Circle c1 = new Cirlce();//no-argument constructor will be called
+		System.out.println(c1.getArea()); // Output : 3.14
+		System.out.println(c1.radius); // Output : 1 (default radius is 1)
+		Circle c2 = new Circle(2);//Single parameter constructor called
+		System.out.println(c2.getArea()); // Output : 12.56
+		c2.setRadius(5); // radius is now set to 5 for c2
+		System.out.println(c2.radius); // Output : 5 (radius is 5)
+	}
+}	
+</pre>		
+</div>
+
+<h3 class="subheading4">Important : </h3>
+<p class="code">
+You can put two or more classes in one file but only one class can be public and file name will be same as that public class.Each class is compiled into a .class file so when you compile above program you will get two file "Circle.class" and "CircleTest.class" seperately. 
+</p>
+	
+
+</body>
+</html>

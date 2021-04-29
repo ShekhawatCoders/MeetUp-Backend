@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+    <link rel="icon" href="../../images/firebase.png">
+    <title>Firebase Realtime Database</title>
+</head>
+
+<body>
+
+    <div class="modal" id="loginModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Good to SeeYou</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Email address</label>
+                            <input type="email" class="form-control" id="exampleFormControlInput1"
+                                placeholder="name@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Enter Password</label>
+                            <input type="password" class="form-control" id="exampleFormControlInput1"
+                                placeholder="password">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1">What changes you want (Optional)</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Login</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="signupModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Join rvCoder Club</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Email address</label>
+                            <input type="email" class="form-control" id="exampleFormControlInput1"
+                                placeholder="name@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Enter Password</label>
+                            <input type="password" class="form-control" id="exampleFormControlInput1"
+                                placeholder="password">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Select Your Degree</label>
+                            <select class="form-control" id="exampleFormControlSelect1">
+                                <option>B.tech</option>
+                                <option>M.tech</option>
+                                <option>B.Sc</option>
+                                <option>M.Sc</option>
+                                <option>B.Com</option>
+                                <option>M.Com</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1">Tell us About yourself (Optional)</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Sign Up</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">rvCoder</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="../index.html">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">App Development<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Firebase <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Explore
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Take Quiz</a>
+                        <a class="dropdown-item" href="#">Read Projects</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Write for Us</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/public/firebase/firebase-database/contact.html">Contact Us</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                <button type="button" class="btn btn-info my-2 mx-2 my-sm-0" data-toggle="modal"
+                    data-target="#loginModal">Login</button>
+                <button type="button" class="btn btn-info my-2 my-sm-0" data-toggle="modal"
+                    data-target="#signupModal">Sign
+                    Up</button>
+            </form>
+        </div>
+    </nav>
+
+    <div class="container my-2 border bg-light">
+        <nav class="my-2">
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+                    aria-controls="nav-home" aria-selected="true">Java</a>
+                <a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+                    aria-controls="nav-profile" aria-selected="false">Kotlin</a>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div class="container my-1">
+                    <pre>
+ChildEventListener childEventListener = new ChildEventListener() {
+    @Override
+    public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
+        Log.d(TAG, "onChildAdded:" + dataSnapshot.getKey());
+
+        // A new comment has been added, add it to the displayed list
+        Comment comment = dataSnapshot.getValue(Comment.class);
+
+        // ...
+    }
+
+    @Override
+    public void onChildChanged(DataSnapshot dataSnapshot, String previousChildName) {
+        Log.d(TAG, "onChildChanged:" + dataSnapshot.getKey());
+
+        // A comment has changed, use the key to determine if we are displaying this
+        // comment and if so displayed the changed comment.
+        Comment newComment = dataSnapshot.getValue(Comment.class);
+        String commentKey = dataSnapshot.getKey();
+
+        // ...
+    }
+
+    @Override
+    public void onChildRemoved(DataSnapshot dataSnapshot) {
+        Log.d(TAG, "onChildRemoved:" + dataSnapshot.getKey());
+
+        // A comment has changed, use the key to determine if we are displaying this
+        // comment and if so remove it.
+        String commentKey = dataSnapshot.getKey();
+
+        // ...
+    }
+
+    @Override
+    public void onChildMoved(DataSnapshot dataSnapshot, String previousChildName) {
+        Log.d(TAG, "onChildMoved:" + dataSnapshot.getKey());
+
+        // A comment has changed position, use the key to determine if we are
+        // displaying this comment and if so move it.
+        Comment movedComment = dataSnapshot.getValue(Comment.class);
+        String commentKey = dataSnapshot.getKey();
+
+        // ...
+    }
+
+    @Override
+    public void onCancelled(DatabaseError databaseError) {
+        Log.w(TAG, "postComments:onCancelled", databaseError.toException());
+        Toast.makeText(mContext, "Failed to load comments.",
+                Toast.LENGTH_SHORT).show();
+    }
+};
+ref.addChildEventListener(childEventListener);                        
+                    </pre>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <div class="container my-1 text-primary">
+                    <pre>
+val childEventListener = object : ChildEventListener {
+    override fun onChildAdded(dataSnapshot: DataSnapshot, previousChildName: String?) {
+        Log.d(TAG, "onChildAdded:" + dataSnapshot.key!!)
+
+        // A new comment has been added, add it to the displayed list
+        val comment = dataSnapshot.getValue&lt;Comment&gt;()
+
+        // ...
+    }
+
+    override fun onChildChanged(dataSnapshot: DataSnapshot, previousChildName: String?) {
+        Log.d(TAG, "onChildChanged: ${dataSnapshot.key}")
+
+        // A comment has changed, use the key to determine if we are displaying this
+        // comment and if so displayed the changed comment.
+        val newComment = dataSnapshot.getValue<Comment>()
+        val commentKey = dataSnapshot.key
+
+        // ...
+    }
+
+    override fun onChildRemoved(dataSnapshot: DataSnapshot) {
+        Log.d(TAG, "onChildRemoved:" + dataSnapshot.key!!)
+
+        // A comment has changed, use the key to determine if we are displaying this
+        // comment and if so remove it.
+        val commentKey = dataSnapshot.key
+
+        // ...
+    }
+
+    override fun onChildMoved(dataSnapshot: DataSnapshot, previousChildName: String?) {
+        Log.d(TAG, "onChildMoved:" + dataSnapshot.key!!)
+
+        // A comment has changed position, use the key to determine if we are
+        // displaying this comment and if so move it.
+        val movedComment = dataSnapshot.getValue<Comment>()
+        val commentKey = dataSnapshot.key
+
+        // ...
+    }
+
+    override fun onCancelled(databaseError: DatabaseError) {
+        Log.w(TAG, "postComments:onCancelled", databaseError.toException())
+        Toast.makeText(context, "Failed to load comments.",
+                Toast.LENGTH_SHORT).show()
+    }
+}
+databaseReference.addChildEventListener(childEventListener)                       
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Option 2: jQuery, Popper.js, and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"
+        integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
+        crossorigin="anonymous"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,13 @@
+.QuotesOuter {
+	background-color: lightblue;
+	margin: 2px;
+	border-radius: 20px;
+	border-left: 5px solid cyan;
+	border-bottom: 10px solid cyan;
+	padding: 0px;
+}
+.QuotesInner {
+	margin: 5px;
+	padding: 0px;
+}
+

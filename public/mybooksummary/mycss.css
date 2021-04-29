@@ -1,0 +1,30 @@
+body {
+	background-color: cyan;
+	padding: 20px;
+}
+.mainheading {
+	font-family: 'Cantata One';
+	font-size: 35px;
+}
+.title {
+	font-family: 'Sofia';
+	font-size: 25px;
+	color: blue;
+}
+.subtitle {
+	font-family: 'Sofia';
+	font-size: 25px;
+	color: blue;
+}
+.maincontent {
+	font-family: 'Cherry Swash';
+	font-size: 20px;
+}
+.content {
+	font-family: 'Cherry Swash';
+	font-size: 20px;
+}
+.question {
+	font-family: 'Cantata One';
+	font-size: 15px;
+}

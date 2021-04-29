@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
+	<link href='https://fonts.googleapis.com/css?family=Cantata One' rel='stylesheet'>
+
+	<title>Single linked list Length</title>
+	<link rel="stylesheet" href="../../mycss.css">
+</head>
+<body>
+
+	<h2 style="text-align: center;">Single Linked List Length(Count Nodes)</h2>
+
+	<div class="codediv">
+
+		<h3 class="subheading">Recursive and Iterative Approach</h3>
+<h4 class="subheading4">Code : </h4>
+		<pre class="code">
+<span class="commentclass">//Definining Node class</span><br>
+class Node {<br>
+	int data;<br>
+	Node next;<br>
+	Node(int data) {<br>
+		this.data = data;<br>
+		this.next = next;<br>
+	}<br>
+	Node(int data,Node next) {<br>
+		this.data = data;<br>
+		this.next = next;<br>
+	}<br>
+}<br>
+public class SingleListLength {<br>
+
+	private Node head = null;<br>
+	<span class="commentclass">//Insert node at the beginning of the list</span><br>
+	public void insertFirst(int data) {<br>
+		Node newNode = new Node(data);<br>
+		newNode.next = this.head;<br>
+		this.head = newNode;<br>
+	}<br>
+	<span class="commentclass">//Insert node at the end of the list</span><br>
+	public void insertLast(int data) {<br>
+		Node newNode = new Node(data);<br>
+		Node temp = this.head;<br>
+		while(temp.next != null) {<br>
+			temp = temp.next;<br>
+		}<br>
+		temp.next = newNode;<br>
+	}<br>
+	<span class="commentclass">//Traverse the whole list</span><br>
+	public void traverse() {<br>
+		Node temp = this.head;<br>
+		while(temp != null) {<br>
+			System.out.print(temp.data+" ");<br>
+			temp = temp.next;<br>
+		}<br>
+		System.out.println();<br>
+	}<br>
+	<span class="commentclass">//Iterative method to count nodes</span><br>
+	public int checkIterativeLength() {<br>
+		int count = 0;<br>
+		Node temp = this.head;<br>
+		while(temp != null) {<br>
+			temp = temp.next;<br>
+			count++;<br>
+		}<br>
+		return count;<br>
+	}<br>
+	<span class="commentclass">//Calling Recursive method</span><br>
+	public int checkRecursiveLength() {<br>
+		return checkRecursiveLengthUtil(this.head);<br>
+	}<br>
+	<span class="commentclass">//Recursive method to count nodes</span><br>
+	public int checkRecursiveLengthUtil(Node head) {<br>
+		if(head == null) return 0;<br>
+		else return(1 + checkRecursiveLengthUtil(head.next));<br>
+	}<br>
+	<span class="commentclass">//Driver code</span><br>
+	public static void main(String[] args) {<br>
+		<span class="commentclass">//Instance of this class since we are calling from static method</span><br>
+		SingleListLength sll = new SingleListLength();<br>
+		<span class="commentclass">//Calling insert methods</span><br>
+		sll.insertFirst(12);<br>
+		sll.insertFirst(7);<br>
+		sll.insertLast(182);<br>
+		sll.insertFirst(25);<br>
+		sll.insertLast(1);<br>
+		sll.insertFirst(20);<br>
+		sll.traverse();<br>
+		<span class="commentclass">//Print counted nodes</span><br>
+		System.out.println(sll.checkRecursiveLength());<br>
+		System.out.println(sll.checkIterativeLength());<br>
+	}<br>
+}
+		</pre>
+
+	<div class="output">
+<h4 class="subheading4">Output : </h4><pre>
+20 25 7 12 182 1
+6
+6
+		</pre>
+	</div>
+
+	</div>
+
+
+</body>
+</html>
