@@ -1,4 +1,3 @@
-import express from 'express';
 const express = require('express');
 var app = express();
 const path =  require('path');
