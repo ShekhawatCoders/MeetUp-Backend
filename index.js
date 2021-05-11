@@ -6,6 +6,7 @@ var forms = multer();
 app.use(bodyParser.json());
 app.use(forms.array()); 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static('public'));
 var http = require('http').Server(app);
 const mysql  = require('mysql');
 
@@ -19,31 +20,38 @@ var con = mysql.createPool({
 });
 
 // router
-app.get('/interest', (req,res) => {
+app.get('/api/v1/interest', (req,res) => {
     var sql  = "SELECT * FROM interest";
     con.query(sql, (error,result) => {
         if(error) throw error;
+        res.send(result);
+        res.end();
+        /*
         for(var i=0;i<result.length;i++) {
             res.write(i+1 + ". " + result[i].name+"\n");
         }
-        res.end();
+        */
     });
 });
-
-app.get('/user', (req,res) => {
+ 
+app.get('/api/v1/user', (req,res) => {
     var sql = "SELECT * FROM user";
     con.query(sql, (error,result) => {
         if(error) throw error;
+        res.send(result);
+        res.end();
+        /*
         console.log(JSON.stringify(result));
         for(var i=0;i<result.length;i++) {
             res.write(i+1 + ". " + result[i].name + " => " + result[i].email+"\n");
         }
-        res.end();
+        */
     });
 });
 
 app.get('/', (req,res) => {
-    res.write("Hello, WElCOME !!!");
+    console.log(__dirname+"/index.html");
+    res.sendFile(__dirname);
     res.end();
 });
 
