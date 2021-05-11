@@ -42,6 +42,11 @@ app.get('/user', (req,res) => {
     });
 });
 
+app.get('/', (req,res) => {
+    res.write("Hello, WElCOME !!!");
+    res.end();
+});
+
 app.post('/signup', (req,res) => {
     var name = req.body.name;
     var email = req.body.email;
