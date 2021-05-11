@@ -1,12 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path');
 var app = express();
 var multer = require('multer');
 var forms = multer();
 app.use(bodyParser.json());
 app.use(forms.array()); 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('public'));
+app.use('/static',express.static(path.join(__dirname,'public')));
 var http = require('http').Server(app);
 const mysql  = require('mysql');
 
@@ -70,7 +71,7 @@ app.post('/signup', (req,res) => {
     });
 });
 
-app.post('/addinterests', (req,res) => {
+app.post('/addinterest', (req,res) => {
     var json_response = req.body;
     const keys = Object.keys(json_response);
     var values = [];
