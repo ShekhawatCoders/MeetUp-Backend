@@ -7,7 +7,7 @@ var forms = multer();
 app.use(bodyParser.json());
 app.use(forms.array()); 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use('/static',express.static(path.join(__dirname,'public')));
+app.use(express.static(path.join(__dirname,'public')));
 var http = require('http').Server(app);
 const mysql  = require('mysql');
 
@@ -50,13 +50,7 @@ app.get('/api/v1/user', (req,res) => {
     });
 });
 
-app.get('/', (req,res) => {
-    console.log(__dirname+"/index.html");
-    res.sendFile(__dirname);
-    res.end();
-});
-
-app.post('/signup', (req,res) => {
+app.post('/api/v1/signup', (req,res) => {
     var name = req.body.name;
     var email = req.body.email;
     var password = req.body.password; 
@@ -71,7 +65,7 @@ app.post('/signup', (req,res) => {
     });
 });
 
-app.post('/addinterest', (req,res) => {
+app.post('/api/v1/addinterest', (req,res) => {
     var json_response = req.body;
     const keys = Object.keys(json_response);
     var values = [];
@@ -88,7 +82,7 @@ app.post('/addinterest', (req,res) => {
     });
 });
 
-app.post('/login', (req,res) => {
+app.post('/api/v1/login', (req,res) => {
     const email = req.body.nmail;
     const password = req.body.password; 
     const sql = 'SELECT * FROM user WHERE email = ? AND password = ?';
