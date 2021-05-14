@@ -25,16 +25,25 @@ var con = mysql.createPool({
 app.get('/api/v1/interest', (req,res) => {
     var sql  = "SELECT * FROM interest";
     con.query(sql, (error,result) => {
-        if(error) throw error;
-        res.send(result);
+        if(error) res.send(null);
+        else res.send(result);
         res.end();
     });
 });
 app.get('/api/v1/user', (req,res) => {
     var sql = "SELECT * FROM user";
     con.query(sql, (error,result) => {
-        if(error) throw error;
-        res.send(result);
+        if(error) res.send(null);
+        else res.send(result);
+        res.end();
+    });
+});
+app.get('/api/v1/interestedUser', (req,res) => {
+    var interestid = Number(req.query.interestid);
+    var sql = "SELECT * FROM user WHERE interestid = ?";
+    con.query(sql, [interestid], (error,result) => {
+        if(error) res.send(null);
+        else res.send(result);
         res.end();
     });
 });
@@ -43,8 +52,8 @@ app.get('/api/v1/chatOne', (req,res) => {
     var receiverid = Number(req.query.receiverid);
     var sql = "SELECT * FROM chat WHERE (senderid=? AND receiverid=?) OR (senderid=? AND receiverid=?) AND messagetype = 0";
     con.query(sql, [senderid,receiverid,receiverid,senderid], (error,result) => {
-        if(error) throw error;
-        res.send(result);
+        if(error) res.send(null);
+        else res.send(result);
         res.end();
     });
 });
@@ -52,8 +61,8 @@ app.get('/api/v1/chatAll', (req,res) => {
     var id = Number(req.query.id);
     var sql = "SELECT * FROM chat WHERE senderid=? OR receiverid=?  AND messagetype = 0";
     con.query(sql, [id,id], (error,result) => {
-        if(error) throw error;
-        res.send(result);
+        if(error) res.send(null);
+        else res.send(result);
         res.end();
     });
 });
@@ -61,23 +70,29 @@ app.get('/api/v1/groupChatAll', (req,res) => {
     var id = Number(req.query.id);
     var sql = "SELECT * FROM chat WHERE receiverid=?  AND messagetype = 1";
     con.query(sql, [id,id], (error,result) => {
-        if(error) throw error;
-        res.send(result);
+        if(error) res.send(null);
+        else res.send(result);
         res.end();
     });
 });
-app.post('/api/v1/signup', (req,res) => {
-    var name = req.body.name;
-    var email = req.body.email;
-    var password = req.body.password; 
+app.get('/api/v1/signup', (req,res) => {
+    var name = req.query.name;
+    var email = req.query.email;
+    var password = req.query.password; 
     // insert this user and return id for this user
     const sql = "INSERT INTO user (name,email,password) VALUES (?,?,?)";
     con.query(sql, [name,email,password], (error,result,fields) => {
-        if(error) throw error;
-        var response = JSON.stringify(result);
-        console.log(response);
-        res.send(response);
-        res.end();
+        if(error) {
+            res.send(null);
+            res.end();
+            return;
+        }
+        const sql = 'SELECT * FROM user WHERE email = ? AND password = ?';
+        con.query(sql, [email,password], (error,result,fields) => {
+            if(error) res.send(null);
+            else res.send(result);
+            res.end();
+        });
     });
 });
 app.post('/api/v1/addinterest', (req,res) => {
@@ -96,15 +111,13 @@ app.post('/api/v1/addinterest', (req,res) => {
         res.end();
     });
 });
-app.post('/api/v1/login', (req,res) => {
-    const email = req.body.nmail;
-    const password = req.body.password; 
+app.get('/api/v1/login', (req,res) => {
+    const email = req.query.email;
+    const password = req.query.password; 
     const sql = 'SELECT * FROM user WHERE email = ? AND password = ?';
     con.query(sql, [email,password], (error,result,fields) => {
-        if(error) throw error;
-        var response = JSON.stringify(result);
-        console.log("USER FOUND => " + response);
-        res.send(response +"\n" + JSON.stringify(fields));
+        if(error) res.send(null);
+        else res.send(result);
         res.end();
     });
 });
