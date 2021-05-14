@@ -38,11 +38,20 @@ app.get('/api/v1/user', (req,res) => {
         res.end();
     });
 });
-app.get('/api/v1/chat', (req,res) => {
+app.get('/api/v1/chatOne', (req,res) => {
     var senderid = Number(req.query.senderid);
     var receiverid = Number(req.query.receiverid);
     var sql = "SELECT * FROM chat WHERE (senderid=? AND receiverid=?) OR (senderid=? AND receiverid=?)";
     con.query(sql, [senderid,receiverid,receiverid,senderid], (error,result) => {
+        if(error) throw error;
+        res.send(result);
+        res.end();
+    });
+});
+app.get('/api/v1/chatAll', (req,res) => {
+    var id = Number(req.query.id);
+    var sql = "SELECT * FROM chat WHERE senderid=? OR receiverid=?";
+    con.query(sql, [id,id], (error,result) => {
         if(error) throw error;
         res.send(result);
         res.end();
