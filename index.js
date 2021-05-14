@@ -83,13 +83,13 @@ app.get('/api/v1/signup', (req,res) => {
     const sql = "INSERT INTO user (name,email,password) VALUES (?,?,?)";
     con.query(sql, [name,email,password], (error,result,fields) => {
         if(error) {
-            res.send(null);
+            res.send([]);
             res.end();
             return;
         }
         const sql = 'SELECT * FROM user WHERE email = ? AND password = ?';
         con.query(sql, [email,password], (error,result,fields) => {
-            if(error) res.send(null);
+            if(error) res.send([]);
             else res.send(result);
             res.end();
         });
@@ -116,7 +116,7 @@ app.get('/api/v1/login', (req,res) => {
     const password = req.query.password; 
     const sql = 'SELECT * FROM user WHERE email = ? AND password = ?';
     con.query(sql, [email,password], (error,result,fields) => {
-        if(error) res.send(null);
+        if(error) res.send([]);
         else res.send(result);
         res.end();
     });
