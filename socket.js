@@ -5,7 +5,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 const port = process.env.PORT || 5500;
 
-// app.use(express.static(path.join(__dirname)));
+// app.use(express.static(path.join(__dirname)+"/public"));
 
 /*
 console.log(__dirname);
@@ -16,12 +16,10 @@ fs.readdirSync(testFolder).forEach(file => {
 });
 */
 
-
-app.get('/',function(req,res) {
-    res.send("Hello !!!");
+app.get('/', (req,res) => {
+    res.send("Hello");
     res.end();
-});
-
+})
 
 var clients = 0;
 var users = [];
