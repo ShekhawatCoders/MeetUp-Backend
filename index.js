@@ -11,7 +11,7 @@ app.use(forms.array());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname,'public')));
 var http = require('http').Server(app);
-// var io = require('socket.io')(http);
+var io = require('socket.io')(http);
 const mysql  = require('mysql');
 const port = process.env.PORT || 5500;
 
@@ -123,14 +123,13 @@ app.get('/api/v1/login', (req,res) => {
 });
 
 // socket server side
-/*
 io.on('connection', function(socket) {
     console.log("connected");
     socket.on('disconnect', function() {
         console.log("dis-connected");
     });
 });
-*/
+
 
 // server listening at port
 http.listen(port, function() {
