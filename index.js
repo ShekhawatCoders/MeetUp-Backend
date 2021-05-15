@@ -11,6 +11,7 @@ app.use(forms.array());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname,'public')));
 var http = require('http').Server(app);
+var io = require('socket.io')(http);
 const mysql  = require('mysql');
 const port = process.env.PORT || 5500;
 
@@ -118,6 +119,12 @@ app.get('/api/v1/login', (req,res) => {
         if(error) res.send([]);
         else res.send(result);
         res.end();
+    });
+});
+
+// socket server side
+io.on('connection', function(socket) {
+    socket.on('disconnect', function() {
     });
 });
 
