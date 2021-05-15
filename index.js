@@ -9,7 +9,7 @@ var forms = multer();
 app.use(bodyParser.json());
 app.use(forms.array()); 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname,'public')));
+// app.use(express.static(path.join(__dirname,'public')));
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 const mysql  = require('mysql');
@@ -124,8 +124,15 @@ app.get('/api/v1/login', (req,res) => {
 
 // socket server side
 io.on('connection', function(socket) {
+    console.log("connected");
     socket.on('disconnect', function() {
+        console.log("dis-connected");
     });
+});
+
+app.get('/',function(req,res) {
+    res.send("Hello !!!");
+    res.end();
 });
 
 // server listening at port

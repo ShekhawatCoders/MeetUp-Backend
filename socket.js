@@ -5,7 +5,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 const port = process.env.PORT || 5500;
 
-app.use(express.static(path.join(__dirname)));
+// app.use(express.static(path.join(__dirname)));
 
 /*
 console.log(__dirname);
@@ -16,9 +16,12 @@ fs.readdirSync(testFolder).forEach(file => {
 });
 */
 
+
 app.get('/',function(req,res) {
-    res.sendFile(path.join(__dirname + '/index.html'));
+    res.send("Hello !!!");
+    res.end();
 });
+
 
 var clients = 0;
 var users = [];
@@ -38,7 +41,7 @@ io.on('connection', function(socket) {
         console.log(users);
     });
 
-    // console.log('A user Connected.');
+    console.log('A user Connected.');
 
     socket.broadcast.emit('message' , { message : socket.id + " user Connected."});
 
