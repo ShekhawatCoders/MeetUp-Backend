@@ -103,11 +103,10 @@ app.post('/api/v1/addinterest', (req,res) => {
         var key = keys[i];
         values.push([Number(key),Number(json_response[key])]);
     }
-    console.log(values);
     var sql = 'INSERT INTO userinterest (interestid,userid) VALUES ?';
     con.query(sql, [values] , (error,result,fields) => {
-        if(error) throw error;
-        res.write("This is error :- ",error,"\n This is Field :- ",fields);
+        if(error) res.send(false);
+        else res.send(true);
         res.end();
     });
 });
