@@ -9,10 +9,12 @@ var multer = require('multer');
 var forms = multer();
 const mysql  = require('mysql');
 const port = process.env.PORT || 5500;
+/*
 var io = require('socket.io')(http, {
     transports: "websocket",
     path: "/index.html"
 });
+*/
 
 app.use(bodyParser.json());
 app.use(forms.array()); 
@@ -127,15 +129,15 @@ app.get('/api/v1/login', (req,res) => {
 });
 
 
-
 // socket server side
+/*
 io.on('connection', function(socket) {
     console.log("user connected");
     socket.on('disconnect', function() {
         console.log("user dis-connected");
     });
 });
-
+*/
 
 // server listening at port
 http.listen(port, function() {
