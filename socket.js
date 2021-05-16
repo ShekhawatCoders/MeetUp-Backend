@@ -5,7 +5,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 const port = process.env.PORT || 5500;
 
-// app.use(express.static(path.join(__dirname)+"/public"));
+app.use(express.static(path.join(__dirname)));
 
 /*
 console.log(__dirname);

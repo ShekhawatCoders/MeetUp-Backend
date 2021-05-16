@@ -4,17 +4,17 @@ const path = require('path');
 const url = require('url');
 const querystring = require('querystring');
 var app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 var multer = require('multer');
 var forms = multer();
+const mysql  = require('mysql');
+const port = process.env.PORT || 5500;
+
 app.use(bodyParser.json());
 app.use(forms.array()); 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname,'public')));
-var http = require('http').Server(app);
-const engine = require('engine.io');
-var io = require('socket.io')(http);
-const mysql  = require('mysql');
-const port = process.env.PORT || 5500;
 
 var con = mysql.createPool({
     host : "us-cdbr-east-03.cleardb.com" ,
