@@ -17,7 +17,7 @@ fs.readdirSync(testFolder).forEach(file => {
 */
 
 app.get('/', (req,res) => {
-    res.send("Hello");
+    res.send("hello")
     res.end();
 })
 

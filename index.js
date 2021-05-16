@@ -14,7 +14,7 @@ const port = process.env.PORT || 5500;
 app.use(bodyParser.json());
 app.use(forms.array()); 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname,'public')));
+app.use(express.static(path.join(__dirname)));
 
 var con = mysql.createPool({
     host : "us-cdbr-east-03.cleardb.com" ,
@@ -125,9 +125,9 @@ app.get('/api/v1/login', (req,res) => {
 
 // socket server side
 io.on('connection', function(socket) {
-    console.log("connected");
+    console.log("user connected");
     socket.on('disconnect', function() {
-        console.log("dis-connected");
+        console.log("user dis-connected");
     });
 });
 
