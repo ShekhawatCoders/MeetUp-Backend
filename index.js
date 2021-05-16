@@ -5,11 +5,14 @@ const url = require('url');
 const querystring = require('querystring');
 var app = express();
 var http = require('http').Server(app);
-var io = require('socket.io')(http);
 var multer = require('multer');
 var forms = multer();
 const mysql  = require('mysql');
 const port = process.env.PORT || 5500;
+var io = require('socket.io')(http, {
+    transports: "websocket",
+    path: "/index.html"
+});
 
 app.use(bodyParser.json());
 app.use(forms.array()); 
@@ -122,6 +125,8 @@ app.get('/api/v1/login', (req,res) => {
         res.end();
     });
 });
+
+
 
 // socket server side
 io.on('connection', function(socket) {
