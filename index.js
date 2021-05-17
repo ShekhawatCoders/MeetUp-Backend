@@ -233,7 +233,7 @@ app.get('/api/v1/updateToken', (req,res) => {
     const id = Number(req.query.id);
     const token = req.query.token;
     const sql = "UPDATE user SET token = ? WHERE id = ?";
-    con.query(sql, [token,id], (req,res) => {
+    con.query(sql, [token,id], (error,result,fields) => {
         if(error) {
             res.send(false);
         } else {
@@ -246,7 +246,7 @@ app.get('/api/v1/updateLastSeen', (req,res) => {
     const id = Number(req.query.id);
     const lastseen = req.query.lastseen;
     const sql = "UPDATE user SET lastseen = ? WHERE id = ?";
-    con.query(sql, [lastseen,id], (req,res) => {
+    con.query(sql, [lastseen,id], (errro,result,fields) => {
         if(error) {
             res.send(false);
         } else {
