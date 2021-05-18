@@ -167,6 +167,10 @@ app.get('/api/v1/addFriendRequests', (req,res) => {
     const firstid = Number(req.query.firstid);
     const secondid = Number(req.query.secondid);
     const status = 0;
+    if(first == secondid) {
+        res.send(null);
+        res.end();
+    }
     if(firstid > secondid) {
         var temp = firstid;
         firstid = secondid;
@@ -188,6 +192,15 @@ app.get('/api/v1/makeFriends', (req,res) => {
     const firstid = Number(req.query.firstid);
     const secondid = Number(req.query.secondid);
     // notify user here
+    if(first == secondid) {
+        res.send(null);
+        res.end();
+    }
+    if(firstid > secondid) {
+        var temp = firstid;
+        firstid = secondid;
+        secondid = temp;
+    }
     const sql = "UPDATE friends SET status = 2 " + 
     "WHERE firstid = ? AND secondid = ?";
     con.query(sql, [firstid, secondid], (error,result,fields) => {
@@ -203,8 +216,8 @@ app.get('/api/v1/getFriends' , (req,res) => {
     const id = Number(req.query.id);
     const sql = "SELECT user.id,name,email,password,status,"+
     "lastseen,socketid,token FROM user,friends WHERE "+
-    "(friends.firstid = ? AND user.id = friends.firstid AND stat = 2) OR "+
-    "(friends.secondid = ? AND user.id = friends.secondid AND stat = 2)";
+    "(friends.firstid = ? AND user.id = friends.secondid AND stat = 2) OR "+
+    "(friends.secondid = ? AND user.id = friends.firstid AND stat = 2)";
     con.query(sql, [id,id], (error,result,fields) => {
         if(error) {
             res.send(null);
@@ -218,8 +231,8 @@ app.get('/api/v1/getFriendRequests' , (req,res) => {
     const id = Number(req.query.id);
     const sql = "SELECT user.id,name,email,password,status,"+
     "lastseen,socketid,token FROM user,friends WHERE "+
-    "(friends.firstid = ? AND user.id = friends.firstid AND stat = 1) OR "+
-    "(friends.secondid = ? AND user.id = friends.secondid AND stat = 0)";
+    "(friends.firstid = ? AND user.id = friends.secondid AND stat = 1) OR "+
+    "(friends.secondid = ? AND user.id = friends.firstid AND stat = 0)";
     con.query(sql, [id,id], (error,result,fields) => {
         if(error) {
             res.send(null);
