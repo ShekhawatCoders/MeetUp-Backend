@@ -9,6 +9,13 @@ var multer = require('multer');
 var forms = multer();
 const mysql  = require('mysql');
 const port = process.env.PORT || 5500;
+var admin = require("firebase-admin");
+var serviceAccount = require("./google-services.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://teachtous.firebaseio.com"
+});
 
 app.use(bodyParser.json());
 app.use(forms.array()); 
@@ -155,6 +162,7 @@ app.get('/api/v1/addChatOneMessage', (req,res) => {
             res.end();
             return;
         }
+        sendMessage(senderid,receiverid,message);
         const sql = "SELECT * FROM chat where messageid = ? AND messagetype = 0";
         con.query(sql, [result.insertId], (error,result,fields) => {
             if(error) res.send(null);
@@ -269,6 +277,49 @@ app.get('/api/v1/updateLastSeen', (req,res) => {
     });
 });
 
+
+function sendMessage(senderid,receiverid,message) {
+    const sql = "SELECT name from user WHERE id = ?";
+    con.query(sql, [senderid], (error,result,fields) => {
+        if(error) {
+            console.log(error);
+            return;
+        }
+        const sql = "SELECT token from user WHERE id = ?";
+        con.query(sql, [receiverid], (error, result2, fields2) => {
+            if(error) {
+                console.log(error);
+                return;
+            }
+            // console.log(result[0].token);
+            sendFCMessageNotification(result[0].name,result2[0].token,message);
+        }); 
+    });
+    
+}
+
+function sendFCMessageNotification(name,registrationToken, msg) {
+    const message = {
+        notification : {
+            title : name + " sent you a message .",
+            body : msg
+        },
+        data : {
+            title : name + " sent you a message .",
+            data : msg
+        },
+        token : registrationToken
+    };
+
+    admin.messaging().send(message)
+    .then(response => {
+        console.log(response);
+    })
+    .catch(error => {
+        console.log(error);
+    });
+
+}
 // server listening at port
 var listener = http.listen(port, function() {
     console.log('Server is listening at port ' + port);
