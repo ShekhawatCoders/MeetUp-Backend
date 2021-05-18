@@ -73,7 +73,7 @@ app.post('/api/v1/allInterestedUsers', (req,res) => {
     "lastseen,socketid,token FROM user,userinterest WHERE "+
     "userinterest.interestid in (?) AND userinterest.userid = user.id";
     con.query(sql, [values], (error,result) => {
-        if(error) res.send(error);
+        if(error) res.send(null);
         else res.send(result);
         res.end();
     });
@@ -123,7 +123,8 @@ app.get('/api/v1/chatOne', (req,res) => {
 });
 app.get('/api/v1/chatAll', (req,res) => {
     var id = Number(req.query.id);
-    var sql = "SELECT * FROM chat WHERE senderid=? OR receiverid=?  AND messagetype = 0";
+    var sql = "SELECT * FROM chat WHERE senderid=? OR receiverid=? "+
+    "AND messagetype = 0";
     con.query(sql, [id,id], (error,result) => {
         if(error) res.send(null);
         else res.send(result);
@@ -150,14 +151,13 @@ app.get('/api/v1/addChatOneMessage', (req,res) => {
     const sql = "INSERT INTO chat (senderid,receiverid,message) VALUES (?, ?, ?);";
     con.query(sql, [senderid,receiverid,message], (error,result,fields) => {
         if(error) {
-            res.send([]);
+            res.send(null);
             res.end();
             return;
         }
-        console.log(result);
         const sql = "SELECT * FROM chat where messageid = ? AND messagetype = 0";
         con.query(sql, [result.insertId], (error,result,fields) => {
-            if(error) res.send([]);
+            if(error) res.send(null);
             else res.send(result);
             res.end();
         });
@@ -207,7 +207,7 @@ app.get('api/v1/getFriends' , (req,res) => {
     "(friends.secondid = ? AND stat = 2)";
     con.query(sql, [id,id], (error,result,fields) => {
         if(error) {
-            res.send([]);
+            res.send(null);
         } else {
             res.send(result);
         }
@@ -222,7 +222,7 @@ app.get('api/v1/getFriendRequests' , (req,res) => {
     "(friends.secondid = ? AND stat = 0)";
     con.query(sql, [id,id], (error,result,fields) => {
         if(error) {
-            res.send([]);
+            res.send(null);
         } else {
             res.send(result);
         }
@@ -246,7 +246,7 @@ app.get('/api/v1/updateLastSeen', (req,res) => {
     const id = Number(req.query.id);
     const lastseen = req.query.lastseen;
     const sql = "UPDATE user SET lastseen = ? WHERE id = ?";
-    con.query(sql, [lastseen,id], (errro,result,fields) => {
+    con.query(sql, [lastseen,id], (error,result,fields) => {
         if(error) {
             res.send(false);
         } else {
