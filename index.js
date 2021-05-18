@@ -162,11 +162,14 @@ app.get('/api/v1/addChatOneMessage', (req,res) => {
             res.end();
             return;
         }
-        sendMessage(senderid,receiverid,message);
         const sql = "SELECT * FROM chat where messageid = ? AND messagetype = 0";
         con.query(sql, [result.insertId], (error,result,fields) => {
             if(error) res.send(null);
-            else res.send(result);
+            else {
+                res.send(result);
+                sendMessage(result[0]);
+                console.log(result[0]);
+            }
             res.end();
         });
     });
@@ -277,16 +280,15 @@ app.get('/api/v1/updateLastSeen', (req,res) => {
     });
 });
 
-
-function sendMessage(senderid,receiverid,message) {
+function sendMessage(message) {
     const sql = "SELECT name from user WHERE id = ?";
-    con.query(sql, [senderid], (error,result,fields) => {
+    con.query(sql, [message.senderid], (error,result,fields) => {
         if(error) {
             console.log(error);
             return;
         }
         const sql = "SELECT token from user WHERE id = ?";
-        con.query(sql, [receiverid], (error, result2, fields2) => {
+        con.query(sql, [message.receiverid], (error, result2, fields2) => {
             if(error) {
                 console.log(error);
                 return;
@@ -297,16 +299,20 @@ function sendMessage(senderid,receiverid,message) {
     });
     
 }
-
 function sendFCMessageNotification(name,registrationToken, msg) {
     const message = {
         notification : {
             title : name + " sent you a message .",
-            body : msg
+            body : msg.message
         },
         data : {
             title : name + " sent you a message .",
-            data : msg
+            messageid : ""+msg.id,
+            senderid : ""+msg.senderid,
+            receiverid : ""+msg.receiverid,
+            message : msg.message,
+            sendtime : ""+msg.sendtime,
+            type : ""+msg.type 
         },
         token : registrationToken
     };
