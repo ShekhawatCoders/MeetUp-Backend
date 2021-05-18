@@ -203,8 +203,8 @@ app.get('/api/v1/getFriends' , (req,res) => {
     const id = Number(req.query.id);
     const sql = "SELECT user.id,name,email,password,status,"+
     "lastseen,socketid,token FROM user,friends WHERE "+
-    "(friends.firstid = ? AND stat = 2) OR "+
-    "(friends.secondid = ? AND stat = 2)";
+    "(friends.firstid = ? AND user.id = friends.firstid AND stat = 2) OR "+
+    "(friends.secondid = ? AND user.id = friends.secondid AND stat = 2)";
     con.query(sql, [id,id], (error,result,fields) => {
         if(error) {
             res.send(null);
@@ -218,8 +218,8 @@ app.get('/api/v1/getFriendRequests' , (req,res) => {
     const id = Number(req.query.id);
     const sql = "SELECT user.id,name,email,password,status,"+
     "lastseen,socketid,token FROM user,friends WHERE "+
-    "(friends.firstid = ? AND stat = 1) OR "+
-    "(friends.secondid = ? AND stat = 0)";
+    "(friends.firstid = ? AND user.id = friends.firstid AND stat = 1) OR "+
+    "(friends.secondid = ? AND user.id = friends.secondid AND stat = 0)";
     con.query(sql, [id,id], (error,result,fields) => {
         if(error) {
             res.send(null);
