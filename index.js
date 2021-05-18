@@ -307,7 +307,7 @@ function sendFCMessageNotification(name,registrationToken, msg) {
         },
         data : {
             title : name + " sent you a message .",
-            messageid : ""+msg.id,
+            messageid : ""+msg.messageid,
             senderid : ""+msg.senderid,
             receiverid : ""+msg.receiverid,
             message : msg.message,
