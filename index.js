@@ -199,7 +199,7 @@ app.get('/api/v1/makeFriends', (req,res) => {
         res.end();
     });
 });
-app.get('api/v1/getFriends' , (req,res) => {
+app.get('/api/v1/getFriends' , (req,res) => {
     const id = Number(req.query.id);
     const sql = "SELECT user.id,name,email,password,status,"+
     "lastseen,socketid,token FROM user,friends WHERE "+
@@ -214,7 +214,7 @@ app.get('api/v1/getFriends' , (req,res) => {
         res.end();
     });
 });
-app.get('api/v1/getFriendRequests' , (req,res) => {
+app.get('/api/v1/getFriendRequests' , (req,res) => {
     const id = Number(req.query.id);
     const sql = "SELECT user.id,name,email,password,status,"+
     "lastseen,socketid,token FROM user,friends WHERE "+
