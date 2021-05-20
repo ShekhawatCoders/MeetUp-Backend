@@ -23,12 +23,17 @@
     <script>
         var socket = io();
         socket.emit("Android", { message: "This is Android"});
+        socket.emit("typing",{id: "this is id",val: true});
+        socket.on('typing', (data) => {
+            document.getElementById("typing").innerHTML += "User is Typing";
+        });
     </script>
 
     <p id="online"></p>
     <h1 id="heading">Hello Vishal Singh Shekhawat</h1>
     <p id="subheading">Nice to meet you , you are never forgettable
         for me you have given a lot me.</p>
+    <p id="typing"></p>
 
 </body>
 

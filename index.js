@@ -340,6 +340,11 @@ io.on('connection', function(socket) {
         // socket.broadcast.emit('message',data);
     });
 
+    socket.on('typing', (data) => {
+        console.log(data);
+        io.emit('typing', "This is for all");
+    })
+
 }); 
 
 // server listening at port
