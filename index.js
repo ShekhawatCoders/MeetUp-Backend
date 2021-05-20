@@ -342,7 +342,7 @@ io.on('connection', function(socket) {
 
     socket.on('typing', (data) => {
         console.log(data);
-        io.emit('typing', "This is for all");
+        socket.broacast.emit('typing', data);
     })
 
 }); 
