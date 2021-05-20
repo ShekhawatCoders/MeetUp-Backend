@@ -5,6 +5,7 @@ const url = require('url');
 const querystring = require('querystring');
 var app = express();
 var http = require('http').Server(app);
+var io = require('socket.io')(http);
 var multer = require('multer');
 var forms = multer();
 const mysql  = require('mysql');
@@ -20,7 +21,7 @@ admin.initializeApp({
 app.use(bodyParser.json());
 app.use(forms.array()); 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname)));
+app.use(express.static(path.join(__dirname,'public')));
 
 var con = mysql.createPool({
     host : "us-cdbr-east-03.cleardb.com" ,
@@ -29,6 +30,10 @@ var con = mysql.createPool({
     database : "heroku_90fbd2c992ae916"
 });
 
+app.get('/', (req,res) => {
+    res.send("Hello");
+    res.end();
+})
 // router
 app.get('/api/v1/login', (req,res) => {
     const email = req.query.email;
@@ -326,6 +331,11 @@ function sendFCMessageNotification(name,registrationToken, msg) {
     });
 
 }
+
+io.on('connection', function(socket) {
+    console.log("User connected.");
+});
+
 // server listening at port
 var listener = http.listen(port, function() {
     console.log('Server is listening at port ' + port);

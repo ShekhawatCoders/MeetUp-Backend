@@ -22,53 +22,6 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
         var socket = io();
-        
-        var username = "";
-        while(username.length == 0) {
-            username = prompt("Enter your name");
-        }
-
-        socket.on('online' , (data) => {
-            document.getElementById("online").innerHTML = data;
-        });
-
-        socket.emit('newuser', {
-            username: username
-        });
-
-        socket.on('newclientconnect', function (data) {
-            console.log(data.description);
-            var ul = document.getElementById('messages');
-            var li = document.createElement("li");
-            li.appendChild(document.createTextNode(data.description));
-            ul.appendChild(li);
-        });
-
-        socket.on('alluser', (data) => {
-            var ul = document.getElementById('alluser');
-            data.forEach(element => {
-                var li = document.createElement("li");
-                li.appendChild(document.createTextNode(element.username+"["+element.userid+"]"));
-                ul.appendChild(li);
-            });
-        });
-
-        socket.on('message', function (data) {
-            var ul = document.getElementById('messages');
-            var li = document.createElement("li");
-            li.appendChild(document.createTextNode(data.message));
-            ul.appendChild(li);
-        });
-
-        function storeval() {
-            var msg = document.getElementById('text').value;
-            // alert(msg);
-            socket.emit('another_message', {
-                message: msg
-            });
-            document.getElementById('text').value = '';
-            return true;
-        }
     </script>
 
     <p id="online"></p>
