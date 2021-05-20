@@ -22,7 +22,7 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
         var socket = io();
-        
+        socket.emit("Android", { message: "This is Android"});
     </script>
 
     <p id="online"></p>

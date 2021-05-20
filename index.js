@@ -334,7 +334,13 @@ function sendFCMessageNotification(name,registrationToken, msg) {
 
 io.on('connection', function(socket) {
     console.log("User connected.");
-});
+
+    socket.on('Android', (data) => {
+        console.log(data);
+        // socket.broadcast.emit('message',data);
+    });
+
+}); 
 
 // server listening at port
 var listener = http.listen(port, function() {
