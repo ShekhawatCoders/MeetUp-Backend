@@ -361,7 +361,7 @@ io.on('connection', function(socket) {
     
     console.log("User connected.");
 
-    console.log(socket.query);
+    console.log("socket query :- " + socket.query + socket.query.userId);
 
     socket.on("disconnect", function() {
         console.log(socket.id)
