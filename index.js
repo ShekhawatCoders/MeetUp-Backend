@@ -184,7 +184,7 @@ app.get('/api/v1/addFriendRequests', (req,res) => {
     var secondid = Number(req.query.secondid);
     var stat = 0;
     if(firstid == secondid) {
-        res.send(null);
+        res.send(false);
         res.end();
     }
     if(firstid > secondid) {
@@ -208,7 +208,7 @@ app.get('/api/v1/removeFriendRequests', (req,res) => {
     var firstid = Number(req.query.firstid);
     var secondid = Number(req.query.secondid);
     if(firstid == secondid) {
-        res.send(null);
+        res.send(false);
         res.end();
     }
     if(firstid > secondid) {
@@ -232,7 +232,7 @@ app.get('/api/v1/makeFriends', (req,res) => {
     var secondid = Number(req.query.secondid);
     // notify user here
     if(firstid == secondid) {
-        res.send(null);
+        res.send(false);
         res.end();
     }
     if(firstid > secondid) {
