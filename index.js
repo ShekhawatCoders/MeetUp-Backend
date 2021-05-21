@@ -33,7 +33,7 @@ var con = mysql.createPool({
 app.get('/', (req,res) => {
     res.send("Hello");
     res.end();
-})
+});
 // router
 app.get('/api/v1/login', (req,res) => {
     const email = req.query.email;
@@ -204,6 +204,31 @@ app.get('/api/v1/addFriendRequests', (req,res) => {
         res.end();
     });
 });
+app.get('/api/v1/removeFriendRequests', (req,res) => {
+    const firstid = Number(req.query.firstid);
+    const secondid = Number(req.query.secondid);
+    const status = 0;
+    if(first == secondid) {
+        res.send(null);
+        res.end();
+    }
+    if(firstid > secondid) {
+        var temp = firstid;
+        firstid = secondid;
+        secondid = temp;
+        status = 1;
+    }
+    // notify user here
+    const sql = "DELETE FROM friends WHERE firstid = ? AND secondid = ?";
+    con.query(sql, [firstid, secondid], (error,result,fields) => {
+        if(error) {
+            res.send(false);
+        } else {
+            res.send(true);
+        }
+        res.end();
+    });
+});
 app.get('/api/v1/makeFriends', (req,res) => {
     const firstid = Number(req.query.firstid);
     const secondid = Number(req.query.secondid);
@@ -335,9 +360,43 @@ function sendFCMessageNotification(name,registrationToken, msg) {
 io.on('connection', function(socket) {
     console.log("User connected.");
 
-    socket.on('Android', (data) => {
+    socket.on("newMessage", (data) => {
         console.log(data);
-        // socket.broadcast.emit('message',data);
+        /*
+        const senderId = TODO()
+        const receiverId = TODO()
+        const message = TODO()
+        // add to database
+        const sql = "INSERT INTO chat (senderid,receiverid,message) VALUES (?, ?, ?);";
+        con.query(sql, [senderid,receiverid,message], (error,result,fields) => {
+            if(error) {
+                return;
+            }
+            const sql = "SELECT * FROM chat where messageid = ? AND messagetype = 0";
+            con.query(sql, [result.insertId], (error,result,fields) => {
+                if(error) res.send(null);
+                else {
+                    res.send(result);
+                    // emit data through socket
+                    socket.broadcast.emit("newMessage", result[0]);
+                    sendMessage(result[0]);
+                    console.log(result[0]);
+                }
+                res.end();
+            });
+        });
+        */
+    });
+
+    socket.on('online', (data) => {
+        // online
+        // change to database
+    });
+
+    socket.on('offline', (data) => {    
+        // offline
+        // change to database
+        socket.broadcast.emit('offline', data);
     });
 
     socket.on('typing', (data) => {
