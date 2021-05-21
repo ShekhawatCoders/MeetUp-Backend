@@ -182,8 +182,8 @@ app.get('/api/v1/addChatOneMessage', (req,res) => {
 app.get('/api/v1/addFriendRequests', (req,res) => {
     const firstid = Number(req.query.firstid);
     const secondid = Number(req.query.secondid);
-    const status = 0;
-    if(first == secondid) {
+    const stat = 0;
+    if(firstid == secondid) {
         res.send(null);
         res.end();
     }
@@ -191,11 +191,11 @@ app.get('/api/v1/addFriendRequests', (req,res) => {
         var temp = firstid;
         firstid = secondid;
         secondid = temp;
-        status = 1;
+        stat = 1;
     }
     // notify user here
-    const sql = "INSERT INTO friends (firstid,secondid,status) VALUES (?,?,?)";
-    con.query(sql, [firstid, secondid], (error,result,fields) => {
+    const sql = "INSERT INTO friends (firstid,secondid,stat) VALUES (?,?,?)";
+    con.query(sql, [firstid, secondid, stat], (error,result,fields) => {
         if(error) {
             res.send(false);
         } else {
@@ -208,7 +208,7 @@ app.get('/api/v1/removeFriendRequests', (req,res) => {
     const firstid = Number(req.query.firstid);
     const secondid = Number(req.query.secondid);
     const status = 0;
-    if(first == secondid) {
+    if(firstid == secondid) {
         res.send(null);
         res.end();
     }
@@ -216,7 +216,6 @@ app.get('/api/v1/removeFriendRequests', (req,res) => {
         var temp = firstid;
         firstid = secondid;
         secondid = temp;
-        status = 1;
     }
     // notify user here
     const sql = "DELETE FROM friends WHERE firstid = ? AND secondid = ?";
@@ -233,7 +232,7 @@ app.get('/api/v1/makeFriends', (req,res) => {
     const firstid = Number(req.query.firstid);
     const secondid = Number(req.query.secondid);
     // notify user here
-    if(first == secondid) {
+    if(firstid == secondid) {
         res.send(null);
         res.end();
     }
@@ -242,7 +241,7 @@ app.get('/api/v1/makeFriends', (req,res) => {
         firstid = secondid;
         secondid = temp;
     }
-    const sql = "UPDATE friends SET status = 2 " + 
+    const sql = "UPDATE friends SET stat = 2 " + 
     "WHERE firstid = ? AND secondid = ?";
     con.query(sql, [firstid, secondid], (error,result,fields) => {
         if(error) {
