@@ -187,6 +187,7 @@ app.get('/api/v1/addFriendRequests', (req,res) => {
         res.send(false);
         res.end();
     }
+    sendFriendMessage(firstid, secondid, 0);
     if(firstid > secondid) {
         var temp = firstid;
         firstid = secondid;
@@ -230,6 +231,7 @@ app.get('/api/v1/removeFriendRequests', (req,res) => {
 app.get('/api/v1/makeFriends', (req,res) => {
     var firstid = Number(req.query.firstid);
     var secondid = Number(req.query.secondid);
+    sendFriendMessage(firstid, secondid, 1);
     // notify user here
     if(firstid == secondid) {
         res.send(false);
@@ -325,7 +327,6 @@ function sendMessage(message) {
             sendFCMessageNotification(result[0].name,result2[0].token,message);
         }); 
     });
-    
 }
 function sendFCMessageNotification(name,registrationToken, msg) {
     const message = {
@@ -352,9 +353,59 @@ function sendFCMessageNotification(name,registrationToken, msg) {
     .catch(error => {
         console.log(error);
     });
-
 }
+function sendFriendMessage(senderid,receiverid,type) {
+    const sql = "SELECT name from user WHERE id = ?";
+    con.query(sql, [senderid], (error,result,fields) => {
+        if(error) {
+            console.log(error);
+            return;
+        }
+        const sql = "SELECT token from user WHERE id = ?";
+        con.query(sql, [receiverid], (error, result2, fields2) => {
+            if(error) {
+                console.log(error);
+                return;
+            }
+            // console.log(result[0].token);
+            sendFriendFCMNotification(result[0].name,result2[0].token,type);
+        }); 
+    });
+}
+function sendFriendFCMNotification(name, registrationToken, type) {
+    var title = ""
+    var msg = ""
+    if(type == 0) {
+        // you got request
+        // name sent you hello request
+        title = "Hello Request";
+        msg =  name + " sent you Hello Request";
+    } else if(type == 1) {
+        // user accepted your request
+        title = "Request Accepted"
+        msg = name + " accepted your Hello Request , Now you can talk "+
+        "to each other" 
+    }
+    const message = {
+        notification : {
+            title : title,
+            body : msg
+        },
+        data : {
+            title : title,
+            message : msg
+        },
+        token : registrationToken
+    };
 
+    admin.messaging().send(message)
+    .then(response => {
+        console.log(response);
+    })
+    .catch(error => {
+        console.log(error);
+    });
+}
 io.on('connection', function(socket) {
     
     console.log("User connected.");
