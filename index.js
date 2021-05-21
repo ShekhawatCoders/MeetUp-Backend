@@ -358,7 +358,14 @@ function sendFCMessageNotification(name,registrationToken, msg) {
 }
 
 io.on('connection', function(socket) {
+    
     console.log("User connected.");
+
+    console.log(socket.query);
+
+    socket.on("disconnect", function() {
+        console.log(socket.id)
+    });
 
     socket.on("newMessage", (data) => {
         console.log(data);
