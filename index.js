@@ -369,7 +369,7 @@ io.on('connection', function(socket) {
 
     socket.on("newMessage", (data) => {
         console.log(data);
-        io.emit(data);
+        io.emit("newMessage", data);
         /*
         const senderId = TODO()
         const receiverId = TODO()
