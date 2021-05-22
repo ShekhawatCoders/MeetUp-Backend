@@ -180,12 +180,13 @@ app.get('/api/v1/addChatOneMessage', (req,res) => {
     });
 });
 app.get('/api/v1/addFriendRequests', (req,res) => {
-    var firstid = Number(req.query.firstid);
-    var secondid = Number(req.query.secondid);
+    var firstid = parseInt(req.query.firstid);
+    var secondid = parseInt(req.query.secondid);
     var stat = 0;
     if(firstid == secondid) {
         res.send(false);
         res.end();
+        return;
     }
     sendFriendMessage(firstid, secondid, 0);
     if(firstid > secondid) {
@@ -206,11 +207,12 @@ app.get('/api/v1/addFriendRequests', (req,res) => {
     });
 });
 app.get('/api/v1/removeFriendRequests', (req,res) => {
-    var firstid = Number(req.query.firstid);
-    var secondid = Number(req.query.secondid);
+    var firstid = parseInt(req.query.firstid);
+    var secondid = parseInt(req.query.secondid);
     if(firstid == secondid) {
         res.send(false);
         res.end();
+        return;
     }
     if(firstid > secondid) {
         var temp = firstid;
@@ -229,13 +231,14 @@ app.get('/api/v1/removeFriendRequests', (req,res) => {
     });
 });
 app.get('/api/v1/makeFriends', (req,res) => {
-    var firstid = Number(req.query.firstid);
-    var secondid = Number(req.query.secondid);
+    var firstid = parseInt(req.query.firstid);
+    var secondid = parseInt(req.query.secondid);
     sendFriendMessage(firstid, secondid, 1);
     // notify user here
     if(firstid == secondid) {
         res.send(false);
         res.end();
+        return;
     }
     if(firstid > secondid) {
         var temp = firstid;
