@@ -413,7 +413,9 @@ io.on('connection', function(socket) {
     
     console.log("User connected.");
 
-    console.log("socket");
+    socket.on("newConnection", (data) => {
+        // update socket.id to this userId
+    });
 
     socket.on("disconnect", function() {
         console.log(socket.id)
@@ -422,13 +424,12 @@ io.on('connection', function(socket) {
     socket.on("newMessage", (data) => {
         console.log(data);
         io.emit("newMessage", data);
-        /*
-        const senderId = TODO()
-        const receiverId = TODO()
-        const message = TODO()
+        const senderId = data.senderid;
+        const receiverId = data.receiverid;
+        const message = data.message;
         // add to database
         const sql = "INSERT INTO chat (senderid,receiverid,message) VALUES (?, ?, ?);";
-        con.query(sql, [senderid,receiverid,message], (error,result,fields) => {
+        con.query(sql, [senderId,receiverId,message], (error,result,fields) => {
             if(error) {
                 return;
             }
@@ -445,7 +446,6 @@ io.on('connection', function(socket) {
                 res.end();
             });
         });
-        */
     });
 
     socket.on('online', (data) => {
