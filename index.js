@@ -421,7 +421,7 @@ io.on('connection', function(socket) {
         console.log(socket.id)
     });
 
-    socket.on("newMessage", (response) => {
+    socket.on("newMessage", (data) => {
         console.log(data);
         // io.emit("newMessage", data);
         const senderId = data.senderid;
