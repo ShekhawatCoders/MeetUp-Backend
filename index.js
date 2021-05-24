@@ -287,31 +287,50 @@ app.get('/api/v1/getFriendRequests' , (req,res) => {
     });
 });
 app.get('/api/v1/updateToken', (req,res) => {
-    const id = Number(req.query.id);
-    const token = req.query.token;
-    const sql = "UPDATE user SET token = ? WHERE id = ?";
-    con.query(sql, [token,id], (error,result,fields) => {
-        if(error) {
-            res.send(false);
-        } else {
-            res.send(true);
-        }
-        res.end();
-    });
+    res.send(updateToken(req.query.id, req.query.token));
+    res.end();
 });
 app.get('/api/v1/updateLastSeen', (req,res) => {
-    const id = Number(req.query.id);
-    const lastseen = req.query.lastseen;
+    res.send(updateLastSeen(req.query.id, req.query.lastseen));
+    res.end();
+});
+
+function updateLastSeen(id, lastseen) {
+    const id = parseInt(id);
+    const lastseen = lastseen;
     const sql = "UPDATE user SET lastseen = ? WHERE id = ?";
     con.query(sql, [lastseen,id], (error,result,fields) => {
         if(error) {
-            res.send(false);
+            return false;
         } else {
-            res.send(true);
+            return true;
         }
-        res.end();
     });
-});
+}
+function updateToken(id, token) {
+    const id = parseInt(id);
+    const token = token;
+    const sql = "UPDATE user SET token = ? WHERE id = ?";
+    con.query(sql, [token,id], (error,result,fields) => {
+        if(error) {
+            return false;
+        } else {
+            return true;
+        }
+    });
+}
+function updateSocketId(id, socketid) {
+    const id = parseInt(id);
+    const socketid = socketid;
+    const sql = "UPDATE user SET socketid = ? WHERE id = ?";
+    con.query(sql, [socketid,id], (error,result,fields) => {
+        if(error) {
+            return false;
+        } else {
+            return true;
+        }
+    });
+}
 
 function sendMessage(message) {
     const sql = "SELECT name from user WHERE id = ?";
@@ -415,6 +434,7 @@ io.on('connection', function(socket) {
 
     socket.on("newConnection", (data) => {
         // update socket.id to this userId
+        updateSocketId(data.id, socket.id);
     });
 
     socket.on("disconnect", function() {
@@ -435,7 +455,7 @@ io.on('connection', function(socket) {
             }
             const sql = "SELECT * FROM chat where messageid = ? AND messagetype = 0";
             con.query(sql, [result.insertId], (error,result,fields) => {
-                if(error) res.send(null);
+                if(error) return;
                 else {
                     // res.send(result);
                     // emit data through socket
@@ -443,7 +463,6 @@ io.on('connection', function(socket) {
                     sendMessage(result[0]);
                     console.log(result[0]);
                 }
-                res.end();
             });
         });
     });
