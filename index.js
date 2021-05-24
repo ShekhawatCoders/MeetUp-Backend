@@ -295,9 +295,9 @@ app.get('/api/v1/updateLastSeen', (req,res) => {
     res.end();
 });
 
-function updateLastSeen(id, lastseen) {
-    const id = parseInt(id);
-    const lastseen = lastseen;
+function updateLastSeen(pid, plastseen) {
+    const id = parseInt(pid);
+    const lastseen = plastseen;
     const sql = "UPDATE user SET lastseen = ? WHERE id = ?";
     con.query(sql, [lastseen,id], (error,result,fields) => {
         if(error) {
@@ -307,9 +307,9 @@ function updateLastSeen(id, lastseen) {
         }
     });
 }
-function updateToken(id, token) {
-    const id = parseInt(id);
-    const token = token;
+function updateToken(pid, ptoken) {
+    const id = parseInt(pid);
+    const token = ptoken;
     const sql = "UPDATE user SET token = ? WHERE id = ?";
     con.query(sql, [token,id], (error,result,fields) => {
         if(error) {
@@ -319,9 +319,9 @@ function updateToken(id, token) {
         }
     });
 }
-function updateSocketId(id, socketid) {
-    const id = parseInt(id);
-    const socketid = socketid;
+function updateSocketId(pid, psocketid) {
+    const id = parseInt(pid);
+    const socketid = psocketid;
     const sql = "UPDATE user SET socketid = ? WHERE id = ?";
     con.query(sql, [socketid,id], (error,result,fields) => {
         if(error) {
