@@ -439,7 +439,7 @@ io.on('connection', function(socket) {
                 else {
                     // res.send(result);
                     // emit data through socket
-                    socket.broadcast.emit("newMessage", result[0]);
+                    io.emit("newMessage", result[0]);
                     sendMessage(result[0]);
                     console.log(result[0]);
                 }
