@@ -423,7 +423,7 @@ io.on('connection', function(socket) {
 
     socket.on("newMessage", (data) => {
         console.log(data);
-        io.emit("newMessage", data);
+        // io.emit("newMessage", data);
         const senderId = data.senderid;
         const receiverId = data.receiverid;
         const message = data.message;
@@ -437,7 +437,7 @@ io.on('connection', function(socket) {
             con.query(sql, [result.insertId], (error,result,fields) => {
                 if(error) res.send(null);
                 else {
-                    res.send(result);
+                    // res.send(result);
                     // emit data through socket
                     socket.broadcast.emit("newMessage", result[0]);
                     sendMessage(result[0]);
