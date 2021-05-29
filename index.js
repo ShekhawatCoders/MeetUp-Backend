@@ -332,6 +332,7 @@ function sendMessage(message) {
     });
 }
 function sendFCMessageNotification(name,registrationToken, msg) {
+    if(registrationToken == null) return;
     const message = {
         notification : {
             title : name + " sent you a message .",
@@ -376,6 +377,7 @@ function sendFriendMessage(senderid,receiverid,type) {
     });
 }
 function sendFriendFCMNotification(name, registrationToken, type) {
+    if(registrationToken == null) return;
     var title = ""
     var msg = ""
     if(type == 0) {
